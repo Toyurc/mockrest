@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -25,7 +24,7 @@ func MainHandler(res http.ResponseWriter, req *http.Request) {
 	res.Write(data)
 }
 
-func StartServer( fileName string) {
+func StartServer(fileName string) {
 	FileName = fileName
 	router := mux.NewRouter()
 	router.HandleFunc(EndPoint, MainHandler)
