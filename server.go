@@ -1,10 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+	"os/signal"
 
 	"github.com/gorilla/mux"
 )
@@ -25,6 +27,9 @@ func MainHandler(res http.ResponseWriter, req *http.Request) {
 }
 
 func StartServer(fileName string) {
+	CloseChan = make(chan os.Signal)
+	signal.Notify(CloseChan, os.Interrupt)
+	go listenForClose()
 	FileName = fileName
 	router := mux.NewRouter()
 	router.HandleFunc(EndPoint, MainHandler)
@@ -32,5 +37,15 @@ func StartServer(fileName string) {
 	err := http.ListenAndServe(":"+Port, router)
 	if err != nil {
 		log.Fatal("Major error")
+	}
+}
+
+func listenForClose() {
+	for {
+		select {
+		case <-CloseChan:
+			fmt.Println("Gracefully shutting down...")
+			os.Exit(1)
+		}
 	}
 }

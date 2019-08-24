@@ -13,6 +13,7 @@ var (
 )
 
 func main() {
+
 	mainApp := cli.NewApp()
 
 	mainApp.Commands = []cli.Command{
