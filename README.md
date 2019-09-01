@@ -8,7 +8,7 @@ git clone http://github.com/deolu-asenuga/mockrest
 ```
 * Install it
 ```
-sudo make install
+cd mockest/ && sudo make install
 ```
 
 

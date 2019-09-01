@@ -41,5 +41,8 @@ func main() {
 			},
 		},
 	}
+	mainApp.Action = func(c *cli.Context) {
+		StartServerWithConfig((c.Args().First()))
+	}
 	mainApp.Run(os.Args)
 }
