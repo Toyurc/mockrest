@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/urfave/cli"
@@ -42,7 +43,15 @@ func main() {
 		},
 	}
 	mainApp.Action = func(c *cli.Context) {
-		StartServerWithConfig((c.Args().First()))
+		if _, err := os.Stat("mockrest.json"); err == nil && c.Args().First() == "" {
+			StartServerWithConfig("mockrest.json")
+		} else {
+			if _, err := os.Stat(c.Args().First()); err == nil {
+				StartServerWithConfig(c.Args().First())
+			} else {
+				fmt.Printf("Cannot find file %s \n", c.Args().First())
+			}
+		}
 	}
 	mainApp.Run(os.Args)
 }
