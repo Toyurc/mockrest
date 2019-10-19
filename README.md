@@ -1,6 +1,6 @@
 ## MockRest
 
-#### Installation (linux)
+#### Installation (unix)
 
 - Clone the Repo
 
